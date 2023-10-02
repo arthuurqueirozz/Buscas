@@ -3,6 +3,17 @@
 <head>
   <title>Jogo da Velha</title>
   <style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f0f0f0; /* Cor de fundo do corpo da página */
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      color: #333; /* Cor do título */
+    }
+
     .board {
       display: grid;
       grid-template-columns: repeat(3, 100px);
@@ -11,6 +22,10 @@
       margin: 0 auto;
       width: 310px;
       height: 310px;
+      background-color: #333; /* Cor de fundo do tabuleiro */
+      border: 2px solid #000;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
 
     .cell {
@@ -21,25 +36,38 @@
       vertical-align: middle;
       cursor: pointer;
       border: 1px solid #000;
+      background-color: #fff; /* Cor de fundo das células */
+      color: #333; /* Cor do texto nas células */
     }
 
     .cell:hover {
-      background-color: #eee;
+      background-color: #eee; /* Cor de fundo das células quando hover */
     }
 
-    h1 {
-      text-align: center;
+    .cell.X {
+      color: #e74c3c; /* Cor do texto para marcação 'X' */
+    }
+
+    .cell.O {
+      color: #3498db; /* Cor do texto para marcação 'O' */
     }
 
     #result {
       text-align: center;
       font-size: 24px;
       margin-top: 20px;
+      color: #333; /* Cor do texto do resultado */
     }
+
   </style>
 </head>
 <body>
   <h1>Jogo da Velha</h1>
+  <div id="startScreen">
+    <p>Escolha quem começa:</p>
+    <button onclick="startGame('X')">Começar</button>
+    <button onclick="startGame('O')">Deixar a IA começar</button>
+  </div>
   <div class="board" id="board">
     <div class="cell" onclick="handleCellClick(0)"></div>
     <div class="cell" onclick="handleCellClick(1)"></div>
@@ -49,15 +77,29 @@
     <div class="cell" onclick="handleCellClick(5)"></div>
     <div class="cell" onclick="handleCellClick(6)"></div>
     <div class="cell" onclick="handleCellClick(7)"></div>
-    <div class="cell" onclick="handleCellClick(8)"></div>
+    <div class="cell" onclick="handleCellClick(8)"></div>  
   </div>
   <p id="result"></p>
 
   <script>
     const boardDiv = document.getElementById('board');
     const resultDiv = document.getElementById('result');
+    const startScreen = document.getElementById('startScreen');
     const board = ['', '', '', '', '', '', '', '', ''];
     let currentPlayer = 'X';
+
+    // Função para começar o jogo com a escolha do jogador
+    function startGame(startingPlayer) {
+      currentPlayer = startingPlayer;
+      startScreen.style.display = 'none';
+      boardDiv.style.display = 'grid';
+      renderBoard();
+
+      if (startingPlayer === 'O') {
+        // Se o jogador escolher deixar a IA começar, a IA faz a primeira jogada
+        makeComputerMove();
+      }
+    }
 
     function handleCellClick(index) {
       if (board[index] === '' && !isGameOver(board)) {
