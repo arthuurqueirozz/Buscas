@@ -33,14 +33,20 @@ function handleCellClick(index) {
 }
 
 function makeComputerMove() {
-  const bestMove = getBestMove(board, currentPlayer);
-  board[bestMove.index] = currentPlayer;
-  renderBoard();
-  if (isGameOver(board)) {
-    displayResult();
+    const startTime = performance.now(); 
+  
+    const bestMove = getBestMove(board, currentPlayer);
+    board[bestMove.index] = currentPlayer;
+    renderBoard();
+    if (isGameOver(board)) {
+      displayResult();
+    }
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+  
+    const endTime = performance.now(); 
+    const executionTime = endTime - startTime; 
+    console.log(`Tempo de execução: ${executionTime}ms`);
   }
-  currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-}
 
 function renderBoard() {
   for (let i = 0; i < board.length; i++) {
@@ -132,7 +138,7 @@ for (const move of getEmptyCells(board)) {
   const index = move.index;
   board[index] = player;
   const score = minimax(board, depth + 1, false, player);
-  board[index] = ''; // Desfaz a jogada
+  board[index] = ''; 
   bestScore = Math.max(score, bestScore);
 }
 return bestScore;
@@ -142,7 +148,7 @@ for (const move of getEmptyCells(board)) {
   const index = move.index;
   board[index] = player === 'X' ? 'O' : 'X';
   const score = minimax(board, depth + 1, true, player);
-  board[index] = ''; // Desfaz a jogada
+  board[index] = ''; 
   bestScore = Math.min(score, bestScore);
 }
 return bestScore;
