@@ -33,8 +33,6 @@ function handleCellClick(index) {
 }
 
 function makeComputerMove() {
-    const startTime = performance.now(); 
-  
     const bestMove = getBestMove(board, currentPlayer);
     console.log(getEmptyCells(board))
     board[bestMove.index] = currentPlayer;
@@ -43,10 +41,6 @@ function makeComputerMove() {
       displayResult();
     }
     currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-  
-    const endTime = performance.now(); 
-    const executionTime = endTime - startTime; 
-    console.log(`Tempo de execução: ${executionTime}ms`);
  
   }
 
