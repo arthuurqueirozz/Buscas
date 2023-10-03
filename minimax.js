@@ -36,6 +36,7 @@ function makeComputerMove() {
     const startTime = performance.now(); 
   
     const bestMove = getBestMove(board, currentPlayer);
+    console.log(getEmptyCells(board))
     board[bestMove.index] = currentPlayer;
     renderBoard();
     if (isGameOver(board)) {
@@ -46,6 +47,7 @@ function makeComputerMove() {
     const endTime = performance.now(); 
     const executionTime = endTime - startTime; 
     console.log(`Tempo de execução: ${executionTime}ms`);
+ 
   }
 
 function renderBoard() {
@@ -122,35 +124,35 @@ return emptyCells;
 }
 
 function minimax(board, depth, isMaximizing, player) {
-const result = calculateResult(board);
+  const result = calculateResult(board);
 
-if (result === 'X') {
-return 1;
-} else if (result === 'O') {
-return -1;
-} else if (result === 'Empate') {
-return 0;
-}
+  if (result === 'X') {
+    
+  } else if (result === 'O') {
+    return -1;
+  } else if (result === 'Empate') {
+    return 0;
+  }
 
-if (isMaximizing) {
-let bestScore = -Infinity;
-for (const move of getEmptyCells(board)) {
-  const index = move.index;
-  board[index] = player;
-  const score = minimax(board, depth + 1, false, player);
-  board[index] = ''; 
-  bestScore = Math.max(score, bestScore);
-}
-return bestScore;
-} else {
-let bestScore = Infinity;
-for (const move of getEmptyCells(board)) {
-  const index = move.index;
-  board[index] = player === 'X' ? 'O' : 'X';
-  const score = minimax(board, depth + 1, true, player);
-  board[index] = ''; 
-  bestScore = Math.min(score, bestScore);
-}
-return bestScore;
-}
+  if (isMaximizing) {
+    let bestScore = -Infinity;
+    for (const move of getEmptyCells(board)) {
+        const index = move.index;
+        board[index] = player;
+        const score = minimax(board, depth + 1, false, player);
+        board[index] = ''; 
+        bestScore = Math.max(score, bestScore);
+    }
+    return bestScore;
+  } else {
+  let bestScore = Infinity;
+  for (const move of getEmptyCells(board)) {
+      const index = move.index;
+      board[index] = player === 'X' ? 'O' : 'X';
+      const score = minimax(board, depth + 1, true, player);
+      board[index] = ''; 
+      bestScore = Math.min(score, bestScore);
+  }
+    return bestScore;
+  }
 }
