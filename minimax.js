@@ -1,6 +1,7 @@
 const board = document.getElementById("board");
 const winnerElement = document.getElementById("winner");
-const startButton = document.getElementById("startButton");
+const aiButton = document.getElementById("aiButton");
+const playerButton = document.getElementById("playerButton")
 let currentPlayer = "X";
 let boardState = ["", "", "", "", "", "", "", "", ""];
 let gameOver = false;
@@ -152,8 +153,14 @@ function startGame() {
     }
 }
 
-startButton.addEventListener("click", () => {
-    aiStarts = confirm("A IA começa jogando?");
+playerButton.addEventListener("click", () => {
+    aiStarts = false
 
+    startGame();
+});
+
+aiButton.addEventListener("click", () => {
+    aiStarts = true
+    
     startGame();
 });

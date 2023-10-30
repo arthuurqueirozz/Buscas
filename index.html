@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +8,16 @@
 </head>
 
 <body>
-    <h1>Jogo da Velha</h1>
-    <button id="startButton">Começar</button>
-    <div class="board" id="board"></div>
-    <p id="winner"></p>
-
+    <div class="container">
+        <h1>Jogo da Velha</h1>
+        <div class="btn-container">
+            <button id="aiButton">Começar com IA</button> 
+            <button id="playerButton">Começar com Player</button>
+        </div>
+        <div class="board" id="board"></div>
+        <p id="winner"></p>
+    </div>
+    
     <script src="./minimax.js"></script>
 </body>
 </html>
